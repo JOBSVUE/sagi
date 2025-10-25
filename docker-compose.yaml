@@ -199,7 +199,14 @@ services:
       source: ./entrypoint_celery.sh
       target: /usr/local/bin/entrypoint_celery.sh
       content: |
+        #!/bin/bash
+        # Downloads the tools
+        python superagi/tool_manager.py
         
+        # Install dependencies
+        ./install_tool_dependencies.sh
+        
+        exec celery -A superagi.worker worker --beat --loglevel=info
     build: .
     depends_on:
       - super__redis
