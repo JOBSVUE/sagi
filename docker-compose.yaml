@@ -195,6 +195,11 @@ services:
     volumes:
       - "./:/app"
       - "${EXTERNAL_RESOURCE_DIR:-./workspace}:/app/ext"
+      - type: bind
+      source: ./entrypoint_celery.sh
+      target: /usr/local/bin/entrypoint_celery.sh
+      content: |
+        
     build: .
     depends_on:
       - super__redis
