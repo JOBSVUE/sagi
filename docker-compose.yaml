@@ -3,6 +3,14 @@ services:
   backend:
     volumes:
       - "./:/app"
+      - wait-for-it.sh
+      -
+        type: bind
+        source: ./wait-for-it.sh
+        target: /app/wait-for-it.sh
+        content: |
+          
+        
     build: .
     depends_on:
       - super__redis
