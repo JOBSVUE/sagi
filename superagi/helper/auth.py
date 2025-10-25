@@ -3,6 +3,7 @@ from fastapi.security import APIKeyHeader
 from fastapi_jwt_auth import AuthJWT
 from fastapi_sqlalchemy import db
 from fastapi.security.api_key import APIKeyHeader
+from fastapi import Request
 from superagi.config.config import get_config
 from superagi.models.organisation import Organisation
 from superagi.models.user import User
@@ -44,7 +45,7 @@ def get_user_organisation(Authorize: AuthJWT = Depends(check_auth)):
     return organisation
 
 
-def get_current_user(Authorize: AuthJWT = Depends(check_auth), request: Request = Depends()):
+def get_current_user(Authorize: AuthJWT = Depends(check_auth)):
     env = get_config("ENV", "DEV")
 
     if env == "DEV":
