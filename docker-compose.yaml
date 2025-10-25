@@ -62,8 +62,8 @@ services:
     image: nginx:stable-alpine
     ports:
       - "3050:80"
-    networks:
-      - super_network
+#    networks:
+#      - super_network
     depends_on:
       - backend
       - gui
