@@ -195,29 +195,31 @@ services:
     volumes:
       - "./:/app"
       - "${EXTERNAL_RESOURCE_DIR:-./workspace}:/app/ext"
-      - type: bind
-      source: ./entrypoint.sh
-      target: /usr/local/bin/entrypoint.sh
-      content: |
-        #!/bin/bash
-        # Downloads the tools from marketplace and external tool repositories
-        python superagi/tool_manager.py
-        # Install dependencies
-        ./install_tool_dependencies.sh
-        # Run Alembic migrations
-        alembic upgrade head
-        # Start the app
-        exec uvicorn main:app --host 0.0.0.0 --port 8001 --reload
-      - type: bind
-      source: ./entrypoint_celery.sh
-      target: /usr/local/bin/entrypoint_celery.sh
-      content: |
-        #!/bin/bash
-        # Downloads the tools
-        python superagi/tool_manager.py
-        # Install dependencies
-        ./install_tool_dependencies.sh
-        exec celery -A superagi.worker worker --beat --loglevel=info
+      - 
+        type: bind
+        source: ./entrypoint.sh
+        target: /usr/local/bin/entrypoint.sh
+        content: |
+          #!/bin/bash
+          # Downloads the tools from marketplace and external tool repositories
+          python superagi/tool_manager.py
+          # Install dependencies
+          ./install_tool_dependencies.sh
+          # Run Alembic migrations
+          alembic upgrade head
+          # Start the app
+          exec uvicorn main:app --host 0.0.0.0 --port 8001 --reload
+      - 
+        type: bind
+        source: ./entrypoint_celery.sh
+        target: /usr/local/bin/entrypoint_celery.sh
+        content: |
+          #!/bin/bash
+          # Downloads the tools
+          python superagi/tool_manager.py
+          # Install dependencies
+          ./install_tool_dependencies.sh
+          exec celery -A superagi.worker worker --beat --loglevel=info
     build: .
     depends_on:
       - super__redis
