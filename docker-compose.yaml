@@ -6,8 +6,8 @@ services:
     build: .
     depends_on:
       - super__redis
-      args:
-        DB_HOST: "${DB_HOST}"
+    args:
+      DB_HOST: "${DB_HOST}"
 #      - super__postgres
 #    networks:
 #      - super_network
