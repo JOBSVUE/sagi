@@ -2,7 +2,7 @@ version: '3.8'
 services:
   backend:
     volumes:
-      - "./:/app"
+      #- "./:/app"
       -
         type: bind
         source: ./install_tool_dependencies.sh
@@ -216,7 +216,7 @@ services:
     command: ["/app/wait-for-it.sh", "${DB_HOST}:5552","-t","60","--","/app/entrypoint.sh"]
   celery:
     volumes:
-      - "./:/app"
+      #- "./:/app"
       - "${EXTERNAL_RESOURCE_DIR:-./workspace}:/app/ext"
       - 
         type: bind
