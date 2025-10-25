@@ -5,6 +5,12 @@ services:
       - "./:/app"
       -
         type: bind
+        source: ./install_tool_dependencies.sh
+        target: /app/install_tool_dependencies.sh
+        content: |
+          
+      -
+        type: bind
         source: ./wait-for-it.sh
         target: /app/wait-for-it.sh
         content: |
