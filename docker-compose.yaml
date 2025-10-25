@@ -6,6 +6,8 @@ services:
     build: .
     depends_on:
       - super__redis
+      args:
+        DB_HOST: "${DB_HOST}"
 #      - super__postgres
 #    networks:
 #      - super_network
@@ -68,9 +70,7 @@ services:
     volumes:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
 
-networks:
-  super_network:
-    driver: bridge
+
 volumes:
 #  superagi_postgres_data:
   redis_data:
